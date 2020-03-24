@@ -5,10 +5,11 @@ parsers to import from agent outputs to storage
 
 import json
 import sys
+from pathlib import Path
 
 import libnmap.parser
 
-from sner.lib import is_zip, file_from_zip
+from sner.lib import format_host_address, is_zip, file_from_zip
 from sner.server import db
 from sner.server.parser import ParserBase, register_parser
 from sner.server.model.storage import Host, Note, Service
@@ -25,8 +26,7 @@ class NmapParser(ParserBase):
         if is_zip(path):
             data = file_from_zip(path, 'output.xml').decode('utf-8')
         else:
-            with open(path, 'r') as ftmp:
-                data = ftmp.read()
+            data = Path(path).read_text()
         NmapParser._data_to_storage(data)
 
     @staticmethod
@@ -102,13 +102,30 @@ class NmapParser(ParserBase):
 
         return service
 
+    @staticmethod
+    def service_list(path):
+        """parse path and returns list of services in manymap target format"""
+
+        if is_zip(path):
+            data = file_from_zip(path, 'output.xml').decode('utf-8')
+        else:
+            data = Path(path).read_text()
+
+        services = []
+        report = libnmap.parser.NmapParser.parse_fromstring(data)
+        for ihost in report.hosts:
+            for iservice in ihost.services:
+                services.append('%s://%s:%d' % (iservice.protocol, format_host_address(ihost.address), iservice.port))
+
+        return services
+
 
 def debug_parser():  # pragma: no cover
     """cli helper, pull data from report and display"""
 
-    with open(sys.argv[1], 'r') as ftmp:
-        report = libnmap.parser.NmapParser.parse_fromstring(ftmp.read())
+    report = libnmap.parser.NmapParser.parse_fromstring(Path(sys.argv[1]).read_text())
 
+    print('## default parser')
     for host in report.hosts:
         print('# host: %s' % host.hostnames)
         print('## host dict')
@@ -124,6 +141,9 @@ def debug_parser():  # pragma: no cover
             print(tmp.get_dict())
             print('#### service scripts_results')
             print(json.dumps(tmp.scripts_results, indent=2))
+
+    print('## service list parser')
+    print(NmapParser.service_list(sys.argv[1]))
 
 
 if __name__ == '__main__':  # pragma: no cover

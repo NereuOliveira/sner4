@@ -23,6 +23,26 @@ def queuebyx(queue_ident):
     return Queue.query.filter(Queue.ident == queue_ident).one_or_none()
 
 
+def enumerate_network(arg):
+    """enumerate ip address range"""
+
+    network = ip_network(arg)
+    data = list(network.hosts())
+    if network.prefixlen == network.max_prefixlen:
+        data.append(network.network_address)
+    return data
+
+
+def enqueue(queue, targets):
+    """enqueue targets to queue"""
+
+    enqueued = []
+    for target in targets:
+        enqueued.append({'target': target, 'queue_id': queue.id})
+    db.session.bulk_insert_mappings(Target, enqueued)
+    db.session.commit()
+
+
 @click.group(name='scheduler', help='sner.server scheduler management')
 def scheduler_command():
     """scheduler commands click group/container"""
@@ -35,14 +55,10 @@ def enumips(targets, **kwargs):
     """enumerate ip address range"""
 
     targets = list(targets)
-    if kwargs["file"]:
-        targets += kwargs["file"].read().splitlines()
-    for item in targets:
-        network = ip_network(item)
-        if network.prefixlen == network.max_prefixlen:
-            print(network.network_address)
-        for tmp in network.hosts():
-            print(tmp)
+    if kwargs['file']:
+        targets += kwargs['file'].read().splitlines()
+    for target in targets:
+        print('\n'.join(enumerate_network(target)))
 
 
 @scheduler_command.command(name='rangetocidr', help='convert range specified addr space to series of cidr')
@@ -69,16 +85,11 @@ def queue_enqueue(queue_ident, argtargets, **kwargs):
         sys.exit(1)
 
     argtargets = list(argtargets)
-    if kwargs["file"]:
-        argtargets += kwargs["file"].read().splitlines()
+    if kwargs['file']:
+        argtargets.extend(kwargs['file'].read().splitlines())
+    argtargets = list(map(lambda x: x.strip(), argtargets))
 
-    targets = []
-    for target in argtargets:
-        tmp = target.strip()
-        if tmp:
-            targets.append({'target': target, 'queue_id': queue.id})
-    db.session.bulk_insert_mappings(Target, targets)
-    db.session.commit()
+    enqueue(queue, argtargets)
     sys.exit(0)
 
 

@@ -89,6 +89,8 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     app.cli.add_command(auth_command)
     from sner.server.command.db import db_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(db_command)
+    from sner.server.command.planner import planner_command  # pylint: disable=import-outside-toplevel
+    app.cli.add_command(planner_command)
     from sner.server.command.scheduler import scheduler_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(scheduler_command)
     from sner.server.command.storage import storage_command  # pylint: disable=import-outside-toplevel
