@@ -3,6 +3,7 @@
 misc server components tests
 """
 
+from http import HTTPStatus
 from ipaddress import ip_network
 
 import pytest
@@ -10,9 +11,17 @@ from flask import url_for
 from flask_wtf import FlaskForm
 
 from sner.server.form import TextAreaListField
-from sner.server.model.scheduler import Excl, ExclFamily
+from sner.server.scheduler.model import Excl, ExclFamily
 from sner.server.utils import ExclMatcher, valid_next_url
 from tests.server import DummyPostData
+
+
+def test_index_route(client):
+    """test root url"""
+
+    response = client.get(url_for('index_route'))
+    assert response.status_code == HTTPStatus.OK
+    assert 'logo.png' in response
 
 
 def test_textarealistfield(app):  # pylint: disable=unused-argument

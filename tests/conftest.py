@@ -10,8 +10,8 @@ from tempfile import mkdtemp
 import pytest
 
 from sner.server import db, create_app
-from sner.server.command.db import db_remove
-from sner.server.model.auth import User
+from sner.server.auth.model import User
+from sner.server.command import db_remove
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 
 

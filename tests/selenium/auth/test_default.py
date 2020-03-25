@@ -7,14 +7,12 @@ from base64 import b64decode, b64encode
 
 from fido2 import cbor
 from flask import url_for
-from soft_webauthn import SoftWebauthnDevice
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from sner.server import webauthn
-from sner.server.model.auth import WebauthnCredential
-from tests import persist_and_detach
+from tests.server.auth import webauthn_device_init
 from tests.selenium import webdriver_waituntil
 from tests.selenium.auth import js_variable_ready
 
@@ -22,12 +20,7 @@ from tests.selenium.auth import js_variable_ready
 def test_login_webauthn(live_server, selenium, test_user):  # pylint: disable=unused-argument
     """test login by webauthn"""
 
-    device = SoftWebauthnDevice()
-    device.cred_init(webauthn.rp.id, b'randomhandle')
-    persist_and_detach(WebauthnCredential(
-        user=test_user,
-        user_handle=device.user_handle,
-        credential_data=cbor.encode(device.cred_as_attested().__dict__)))
+    device = webauthn_device_init(test_user)
 
     selenium.get(url_for('auth.login_route', _external=True))
     selenium.find_element_by_xpath('//form//input[@name="username"]').send_keys(test_user.username)
