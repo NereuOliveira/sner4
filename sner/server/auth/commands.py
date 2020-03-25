@@ -11,7 +11,7 @@ from flask.cli import with_appcontext
 
 from sner.server import db
 from sner.server.password_supervisor import PasswordSupervisor as PWS
-from sner.server.auth.model import User
+from sner.server.auth.models import User
 
 
 @click.group(name='auth', help='sner.server auth management')

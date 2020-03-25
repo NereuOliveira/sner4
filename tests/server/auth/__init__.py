@@ -7,7 +7,7 @@ from fido2 import cbor
 from soft_webauthn import SoftWebauthnDevice
 
 from sner.server import webauthn
-from sner.server.auth.model import WebauthnCredential
+from sner.server.auth.models import WebauthnCredential
 from tests import persist_and_detach
 
 

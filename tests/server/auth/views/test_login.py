@@ -11,7 +11,7 @@ from flask import url_for
 
 from sner.server import db, webauthn
 from sner.server.auth.core import TOTPImpl
-from sner.server.auth.model import User
+from sner.server.auth.models import User
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from tests.server import get_csrf_token
 from tests.server.auth import webauthn_device_init

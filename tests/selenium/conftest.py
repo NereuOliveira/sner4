@@ -11,9 +11,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from sner.server import db
-from sner.server.auth.model import User
+from sner.server.auth.models import User
 from tests.selenium import webdriver_waituntil
-from tests.server.auth.model import test_user  # noqa: F401  pylint: disable=unused-import
+from tests.server.auth.models import test_user  # noqa: F401  pylint: disable=unused-import
 from tests.server.scheduler.model import test_excl_network, test_job, test_queue, test_target, test_task  # noqa: F401  pylint: disable=unused-import
 from tests.server.storage.model import test_host, test_note, test_service, test_vuln  # noqa: F401  pylint: disable=unused-import
 

@@ -8,7 +8,7 @@ from fido2 import cbor
 from soft_webauthn import SoftWebauthnDevice
 
 from sner.server import webauthn
-from sner.server.auth.model import User, WebauthnCredential
+from sner.server.auth.models import User, WebauthnCredential
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from tests import persist_and_detach
 

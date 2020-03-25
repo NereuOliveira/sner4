@@ -20,8 +20,8 @@ from sqlalchemy import literal_column
 
 from sner.server import db, webauthn
 from sner.server.auth.core import role_required, TOTPImpl, webauthn_credentials
-from sner.server.auth.form import TotpCodeForm, UserChangePasswordForm, WebauthnRegisterForm, WebauthnEditForm
-from sner.server.auth.model import User, WebauthnCredential
+from sner.server.auth.forms import TotpCodeForm, UserChangePasswordForm, WebauthnRegisterForm, WebauthnEditForm
+from sner.server.auth.models import User, WebauthnCredential
 from sner.server.auth.views import auth_blueprint
 from sner.server.form import ButtonForm
 from sner.server.password_supervisor import PasswordSupervisor as PWS

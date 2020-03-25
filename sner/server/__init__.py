@@ -85,7 +85,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     from sner.server.visuals.controller import blueprint as visuals_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(visuals_blueprint, url_prefix='/visuals')
 
-    from sner.server.auth.command import auth_command  # pylint: disable=import-outside-toplevel
+    from sner.server.auth.commands import auth_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(auth_command)
     from sner.server.command import db_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(db_command)
@@ -111,7 +111,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
 
     @app.shell_context_processor
     def make_shell_context():  # pylint: disable=unused-variable
-        from sner.server.auth.model import User, WebauthnCredential  # pylint: disable=import-outside-toplevel
+        from sner.server.auth.models import User, WebauthnCredential  # pylint: disable=import-outside-toplevel
         from sner.server.scheduler.model import Excl, ExclFamily, Job, Queue, Target, Task  # pylint: disable=import-outside-toplevel
         from sner.server.storage.model import Host, Note, Service, Vuln  # pylint: disable=import-outside-toplevel
         return {

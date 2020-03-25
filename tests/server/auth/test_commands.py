@@ -3,8 +3,8 @@
 auth.command tests
 """
 
-from sner.server.auth.command import auth_command
-from sner.server.auth.model import User
+from sner.server.auth.commands import auth_command
+from sner.server.auth.models import User
 
 
 def test_auth_passwordreset_command(runner, test_user):

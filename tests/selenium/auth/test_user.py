@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from sner.server import db
-from sner.server.auth.model import User
+from sner.server.auth.models import User
 from tests.selenium import dt_inrow_delete, dt_rendered, webdriver_waituntil
 
 

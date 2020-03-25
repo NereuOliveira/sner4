@@ -11,7 +11,7 @@ from flask import current_app
 from flask.cli import with_appcontext
 
 from sner.server import db
-from sner.server.auth.model import User
+from sner.server.auth.models import User
 from sner.server.scheduler.model import Excl, ExclFamily, Queue, Task, Target
 from sner.server.storage.model import Host, Note, Service, SeverityEnum, Vuln
 

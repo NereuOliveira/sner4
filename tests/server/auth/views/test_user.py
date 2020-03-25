@@ -8,10 +8,10 @@ from http import HTTPStatus
 
 from flask import url_for
 
-from sner.server.auth.model import User
+from sner.server.auth.models import User
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from tests.server import get_csrf_token
-from tests.server.auth.model import create_test_user
+from tests.server.auth.models import create_test_user
 
 
 def test_user_list_route(cl_admin):

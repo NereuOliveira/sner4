@@ -10,7 +10,7 @@ from flask import url_for
 from soft_webauthn import SoftWebauthnDevice
 
 from sner.server import webauthn
-from sner.server.auth.model import User
+from sner.server.auth.models import User
 from tests.selenium import webdriver_waituntil
 from tests.selenium.auth import js_variable_ready
 
