@@ -1,13 +1,13 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-scheduler commands tests
+scheduler.commands tests
 """
 
 import os
 
-from sner.server.scheduler.command import scheduler_command
-from sner.server.scheduler.model import Job, Queue
-from tests.server.scheduler.model import create_test_target
+from sner.server.scheduler.commands import scheduler_command
+from sner.server.scheduler.models import Job, Queue
+from tests.server.scheduler.models import create_test_target
 
 
 def test_enumips_command(runner, tmpworkdir):  # pylint: disable=unused-argument

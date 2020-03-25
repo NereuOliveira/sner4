@@ -14,8 +14,8 @@ from sqlalchemy_filters import apply_filters
 from sner.server import db
 from sner.server.auth.core import role_required
 from sner.server.form import ButtonForm
-from sner.server.scheduler.controller import blueprint
-from sner.server.scheduler.model import Job, Queue
+from sner.server.scheduler.models import Job, Queue
+from sner.server.scheduler.views import scheduler_blueprint
 from sner.server.sqlafilter import filter_parser
 from sner.server.utils import SnerJSONEncoder
 
@@ -29,7 +29,7 @@ def job_delete(job):
     db.session.commit()
 
 
-@blueprint.route('/job/list')
+@scheduler_blueprint.route('/job/list')
 @role_required('operator')
 def job_list_route():
     """list jobs"""
@@ -37,7 +37,7 @@ def job_list_route():
     return render_template('scheduler/job/list.html')
 
 
-@blueprint.route('/job/list.json', methods=['GET', 'POST'])
+@scheduler_blueprint.route('/job/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def job_list_json_route():
     """list jobs, data endpoint"""
@@ -61,7 +61,7 @@ def job_list_json_route():
     return Response(json.dumps(jobs, cls=SnerJSONEncoder), mimetype='application/json')
 
 
-@blueprint.route('/job/delete/<job_id>', methods=['GET', 'POST'])
+@scheduler_blueprint.route('/job/delete/<job_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def job_delete_route(job_id):
     """delete job"""

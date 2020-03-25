@@ -20,7 +20,7 @@ from sqlalchemy.sql.expression import func
 import sner.agent.protocol
 from sner.server import db
 from sner.server.auth.core import role_required
-from sner.server.scheduler.model import Job, Queue, Target
+from sner.server.scheduler.models import Job, Queue, Target
 from sner.server.utils import ExclMatcher
 
 

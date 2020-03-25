@@ -11,7 +11,7 @@ from flask import url_for
 from flask_wtf import FlaskForm
 
 from sner.server.form import TextAreaListField
-from sner.server.scheduler.model import Excl, ExclFamily
+from sner.server.scheduler.models import Excl, ExclFamily
 from sner.server.utils import ExclMatcher, valid_next_url
 from tests.server import DummyPostData
 
@@ -38,16 +38,6 @@ def test_textarealistfield(app):  # pylint: disable=unused-argument
     form = Xform(DummyPostData())
     assert isinstance(form.a.data, list)
     assert not form.a.data
-
-
-def test_models_scheduler_repr(app, test_task, test_queue, test_target, test_job, test_excl_network):  # noqa: E501  pylint: disable=unused-argument,too-many-arguments
-    """test models repr methods"""
-
-    assert repr(test_task)
-    assert repr(test_queue)
-    assert repr(test_target)
-    assert repr(test_job)
-    assert repr(test_excl_network)
 
 
 def test_models_storage_repr(app, test_host, test_service, test_vuln, test_note):  # pylint: disable=unused-argument

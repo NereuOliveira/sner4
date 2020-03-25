@@ -14,7 +14,7 @@ from flask import current_app, request
 from werkzeug.exceptions import HTTPException
 
 from sner.agent.modules import Manymap
-from sner.server.scheduler.model import Excl, ExclFamily
+from sner.server.scheduler.models import Excl, ExclFamily
 from sner.server.storage.model import SeverityEnum
 
 

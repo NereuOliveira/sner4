@@ -78,7 +78,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     app.register_blueprint(api_blueprint, url_prefix='/api')
     from sner.server.auth.views import auth_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
-    from sner.server.scheduler.controller import blueprint as scheduler_blueprint  # pylint: disable=import-outside-toplevel
+    from sner.server.scheduler.views import scheduler_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(scheduler_blueprint, url_prefix='/scheduler')
     from sner.server.storage.controller import blueprint as storage_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(storage_blueprint, url_prefix='/storage')
@@ -89,7 +89,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     app.cli.add_command(auth_command)
     from sner.server.command import db_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(db_command)
-    from sner.server.scheduler.command import scheduler_command  # pylint: disable=import-outside-toplevel
+    from sner.server.scheduler.commands import scheduler_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(scheduler_command)
     from sner.server.storage.command import storage_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(storage_command)
@@ -112,7 +112,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     @app.shell_context_processor
     def make_shell_context():  # pylint: disable=unused-variable
         from sner.server.auth.models import User, WebauthnCredential  # pylint: disable=import-outside-toplevel
-        from sner.server.scheduler.model import Excl, ExclFamily, Job, Queue, Target, Task  # pylint: disable=import-outside-toplevel
+        from sner.server.scheduler.models import Excl, ExclFamily, Job, Queue, Target, Task  # pylint: disable=import-outside-toplevel
         from sner.server.storage.model import Host, Note, Service, Vuln  # pylint: disable=import-outside-toplevel
         return {
             'app': app, 'db': db,

@@ -11,9 +11,9 @@ from ipaddress import ip_network
 from flask import url_for
 
 from sner.agent import apikey_header
-from sner.server.scheduler.model import Job, Queue, Target
+from sner.server.scheduler.models import Job, Queue, Target
 from tests import persist_and_detach
-from tests.server.scheduler.model import create_test_target
+from tests.server.scheduler.models import create_test_target
 
 
 def test_v1_scheduler_job_assign_route(client, apikey, test_queue):

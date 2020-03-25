@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller netrange tests
+scheduler.views.excl tests
 """
 
 import json
@@ -8,8 +8,8 @@ from http import HTTPStatus
 
 from flask import url_for
 
-from sner.server.scheduler.model import Excl
-from tests.server.scheduler.model import create_test_excl_network
+from sner.server.scheduler.models import Excl
+from tests.server.scheduler.models import create_test_excl_network
 
 
 def test_excl_list_route(cl_operator):

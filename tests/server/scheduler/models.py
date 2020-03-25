@@ -11,7 +11,7 @@ from zipfile import ZipFile
 
 import pytest
 
-from sner.server.scheduler.model import Excl, ExclFamily, Job, Queue, Target, Task
+from sner.server.scheduler.models import Excl, ExclFamily, Job, Queue, Target, Task
 from tests import persist_and_detach
 
 

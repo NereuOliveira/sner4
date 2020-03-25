@@ -12,7 +12,7 @@ from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import InputRequired, Length, NumberRange
 
 from sner.server.form import StringNoneField, TextAreaListField, TextAreaNoneField, Unique
-from sner.server.scheduler.model import ExclFamily, Queue, Task
+from sner.server.scheduler.models import ExclFamily, Queue, Task
 
 
 def valid_excl_family(form, field):  # pylint: disable=unused-argument

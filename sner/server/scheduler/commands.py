@@ -11,8 +11,8 @@ from flask import current_app
 from flask.cli import with_appcontext
 
 from sner.server import db
-from sner.server.scheduler.controller.job import job_delete
-from sner.server.scheduler.model import Job, Queue, Target
+from sner.server.scheduler.views.job import job_delete
+from sner.server.scheduler.models import Job, Queue, Target
 
 
 def queuebyx(queue_ident):

@@ -11,14 +11,14 @@ from sqlalchemy_filters import apply_filters
 from sner.server import db
 from sner.server.auth.core import role_required
 from sner.server.form import ButtonForm
-from sner.server.scheduler.controller import blueprint
-from sner.server.scheduler.controller.queue import queue_delete
-from sner.server.scheduler.form import TaskForm
-from sner.server.scheduler.model import Queue, Task
+from sner.server.scheduler.forms import TaskForm
+from sner.server.scheduler.models import Queue, Task
+from sner.server.scheduler.views import scheduler_blueprint
+from sner.server.scheduler.views.queue import queue_delete
 from sner.server.sqlafilter import filter_parser
 
 
-@blueprint.route('/task/list')
+@scheduler_blueprint.route('/task/list')
 @role_required('operator')
 def task_list_route():
     """list tasks"""
@@ -26,7 +26,7 @@ def task_list_route():
     return render_template('scheduler/task/list.html')
 
 
-@blueprint.route('/task/list.json', methods=['GET', 'POST'])
+@scheduler_blueprint.route('/task/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def task_list_json_route():
     """list tasks, data endpoint"""
@@ -48,7 +48,7 @@ def task_list_json_route():
     return jsonify(tasks)
 
 
-@blueprint.route('/task/add', methods=['GET', 'POST'])
+@scheduler_blueprint.route('/task/add', methods=['GET', 'POST'])
 @role_required('operator')
 def task_add_route():
     """add task"""
@@ -65,7 +65,7 @@ def task_add_route():
     return render_template('scheduler/task/addedit.html', form=form)
 
 
-@blueprint.route('/task/edit/<task_id>', methods=['GET', 'POST'])
+@scheduler_blueprint.route('/task/edit/<task_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def task_edit_route(task_id):
     """edit task"""
@@ -81,7 +81,7 @@ def task_edit_route(task_id):
     return render_template('scheduler/task/addedit.html', form=form)
 
 
-@blueprint.route('/task/delete/<task_id>', methods=['GET', 'POST'])
+@scheduler_blueprint.route('/task/delete/<task_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def task_delete_route(task_id):
     """delete task; delete all queues and respective jobs in cascade (deals with output files)"""

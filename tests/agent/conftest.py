@@ -10,7 +10,7 @@ from uuid import uuid4
 
 import pytest
 
-from sner.server.scheduler.model import Queue, Target, Task
+from sner.server.scheduler.models import Queue, Target, Task
 from tests import persist_and_detach
 
 

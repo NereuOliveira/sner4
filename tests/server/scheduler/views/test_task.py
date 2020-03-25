@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller scheduler.task tests
+scheduler.views.tasks tests
 """
 
 import json
@@ -9,8 +9,8 @@ from http import HTTPStatus
 
 from flask import url_for
 
-from sner.server.scheduler.model import Queue, Task
-from tests.server.scheduler.model import create_test_task
+from sner.server.scheduler.models import Queue, Task
+from tests.server.scheduler.models import create_test_task
 
 
 def test_task_list_route(cl_operator):
