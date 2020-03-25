@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller auth.profile tests
+auth.views.profile tests
 """
 
 import json
@@ -12,7 +12,7 @@ from flask import url_for
 from soft_webauthn import SoftWebauthnDevice
 
 from sner.server import db, webauthn
-from sner.server.auth.controller import TOTPImpl
+from sner.server.auth.core import TOTPImpl
 from sner.server.auth.model import User, WebauthnCredential
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from tests import persist_and_detach

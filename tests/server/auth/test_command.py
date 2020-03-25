@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-auth commands testcases
+auth.command tests
 """
 
 from sner.server.auth.command import auth_command

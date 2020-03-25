@@ -11,15 +11,16 @@ from sqlalchemy import literal_column
 from sqlalchemy_filters import apply_filters
 
 from sner.server import db
-from sner.server.auth.controller import blueprint, role_required
+from sner.server.auth.core import role_required
 from sner.server.auth.form import UserForm
 from sner.server.auth.model import User
+from sner.server.auth.views import auth_blueprint
 from sner.server.form import ButtonForm
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from sner.server.sqlafilter import filter_parser
 
 
-@blueprint.route('/user/list')
+@auth_blueprint.route('/user/list')
 @role_required('admin')
 def user_list_route():
     """list users"""
@@ -27,7 +28,7 @@ def user_list_route():
     return render_template('auth/user/list.html')
 
 
-@blueprint.route('/user/list.json', methods=['GET', 'POST'])
+@auth_blueprint.route('/user/list.json', methods=['GET', 'POST'])
 @role_required('admin')
 def user_list_json_route():
     """list users, data endpoint"""
@@ -49,7 +50,7 @@ def user_list_json_route():
     return jsonify(users)
 
 
-@blueprint.route('/user/add', methods=['GET', 'POST'])
+@auth_blueprint.route('/user/add', methods=['GET', 'POST'])
 @role_required('admin')
 def user_add_route():
     """add user"""
@@ -66,7 +67,7 @@ def user_add_route():
     return render_template('auth/user/addedit.html', form=form)
 
 
-@blueprint.route('/auth/edit/<user_id>', methods=['GET', 'POST'])
+@auth_blueprint.route('/auth/edit/<user_id>', methods=['GET', 'POST'])
 @role_required('admin')
 def user_edit_route(user_id):
     """edit task"""
@@ -82,7 +83,7 @@ def user_edit_route(user_id):
     return render_template('auth/user/addedit.html', form=form)
 
 
-@blueprint.route('/user/delete/<user_id>', methods=['GET', 'POST'])
+@auth_blueprint.route('/user/delete/<user_id>', methods=['GET', 'POST'])
 @role_required('admin')
 def user_delete_route(user_id):
     """delete user"""
@@ -97,7 +98,7 @@ def user_delete_route(user_id):
     return render_template('button-delete.html', form=form)
 
 
-@blueprint.route('/user/apikey/<user_id>/<action>', methods=['POST'])
+@auth_blueprint.route('/user/apikey/<user_id>/<action>', methods=['POST'])
 @role_required('admin')
 def user_apikey_route(user_id, action):
     """manage apikey for user"""

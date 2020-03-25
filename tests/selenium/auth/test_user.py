@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-selenium ui tests for auth.user component
+auth.views.user selenium tests
 """
 
 from flask import url_for

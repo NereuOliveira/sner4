@@ -7,7 +7,7 @@ from flask import jsonify, render_template, request
 from sqlalchemy import desc, func
 
 from sner.server import db
-from sner.server.auth.controller import role_required
+from sner.server.auth.core import role_required
 from sner.server.storage.controller.service import service_info_column
 from sner.server.storage.model import Service
 from sner.server.visuals.controller import blueprint

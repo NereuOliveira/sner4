@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-auth controler tests
+auth.views.login tests
 """
 
 from base64 import b64decode, b64encode
@@ -10,7 +10,7 @@ from fido2 import cbor
 from flask import url_for
 
 from sner.server import db, webauthn
-from sner.server.auth.controller import TOTPImpl
+from sner.server.auth.core import TOTPImpl
 from sner.server.auth.model import User
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from tests.server import get_csrf_token

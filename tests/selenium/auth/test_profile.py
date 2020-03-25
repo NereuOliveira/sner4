@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller auth.profile selenium tests
+auth.views.profile selenium tests
 """
 
 from base64 import b64decode, b64encode

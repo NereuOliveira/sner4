@@ -13,7 +13,7 @@ from sqlalchemy import func, literal_column
 from sqlalchemy_filters import apply_filters
 
 from sner.server import db
-from sner.server.auth.controller import role_required
+from sner.server.auth.core import role_required
 from sner.server.form import ButtonForm
 from sner.server.sqlafilter import filter_parser
 from sner.server.storage.command import vuln_report
