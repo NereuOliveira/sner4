@@ -74,7 +74,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     login_manager.login_message_category = 'warning'
     webauthn.init_app(app)
 
-    from sner.server.api.controller import blueprint as api_blueprint  # pylint: disable=import-outside-toplevel
+    from sner.server.api.views import api_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(api_blueprint, url_prefix='/api')
     from sner.server.auth.controller import blueprint as auth_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
