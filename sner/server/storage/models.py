@@ -10,7 +10,7 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import relationship
 
 from sner.server import db
-from sner.server.model import SelectableEnum
+from sner.server.models import SelectableEnum
 
 
 class Host(db.Model):

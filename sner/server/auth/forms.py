@@ -10,7 +10,7 @@ from wtforms import BooleanField, HiddenField, PasswordField, SelectMultipleFiel
 from wtforms.validators import EqualTo, InputRequired, Length, Optional
 from wtforms.widgets import CheckboxInput, ListWidget
 
-from sner.server.form import StringNoneField
+from sner.server.forms import StringNoneField
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 
 

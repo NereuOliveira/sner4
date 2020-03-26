@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-flask forms
+shared forms objects
 """
 
 from flask_wtf import FlaskForm

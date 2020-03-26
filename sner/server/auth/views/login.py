@@ -17,7 +17,7 @@ from sner.server.auth.core import regenerate_session, redirect_after_login, TOTP
 from sner.server.auth.forms import LoginForm, TotpCodeForm, WebauthnLoginForm
 from sner.server.auth.models import User
 from sner.server.auth.views import auth_blueprint
-from sner.server.form import ButtonForm
+from sner.server.forms import ButtonForm
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 
 

@@ -11,7 +11,7 @@ from wtforms import BooleanField, IntegerField, SelectField, SubmitField, Valida
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import InputRequired, Length, NumberRange
 
-from sner.server.form import StringNoneField, TextAreaListField, TextAreaNoneField, Unique
+from sner.server.forms import StringNoneField, TextAreaListField, TextAreaNoneField, Unique
 from sner.server.scheduler.models import ExclFamily, Queue, Task
 
 

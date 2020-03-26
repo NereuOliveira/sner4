@@ -17,7 +17,7 @@ from sqlalchemy_filters import apply_filters
 
 from sner.server import db
 from sner.server.auth.core import role_required
-from sner.server.form import ButtonForm
+from sner.server.forms import ButtonForm
 from sner.server.scheduler.forms import ExclForm, ExclImportForm
 from sner.server.scheduler.models import Excl, ExclFamily
 from sner.server.scheduler.views import scheduler_blueprint

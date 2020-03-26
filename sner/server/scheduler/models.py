@@ -14,7 +14,7 @@ from sqlalchemy import func, Index, select
 from sqlalchemy.orm import column_property, relationship, validates
 
 from sner.server import db
-from sner.server.model import SelectableEnum
+from sner.server.models import SelectableEnum
 
 
 class Task(db.Model):

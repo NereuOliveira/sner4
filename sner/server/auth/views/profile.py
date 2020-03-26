@@ -23,7 +23,7 @@ from sner.server.auth.core import role_required, TOTPImpl, webauthn_credentials
 from sner.server.auth.forms import TotpCodeForm, UserChangePasswordForm, WebauthnRegisterForm, WebauthnEditForm
 from sner.server.auth.models import User, WebauthnCredential
 from sner.server.auth.views import auth_blueprint
-from sner.server.form import ButtonForm
+from sner.server.forms import ButtonForm
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from sner.server.utils import SnerJSONEncoder
 

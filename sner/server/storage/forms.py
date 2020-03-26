@@ -7,7 +7,7 @@ from flask_wtf import FlaskForm
 from wtforms import FieldList, HiddenField, IntegerField, SelectField, SubmitField, ValidationError
 from wtforms.validators import AnyOf, InputRequired, IPAddress, Length, NumberRange, Optional
 
-from sner.server.form import StringNoneField, TextAreaListField, TextAreaNoneField
+from sner.server.forms import StringNoneField, TextAreaListField, TextAreaNoneField
 from sner.server.storage.models import Host, Service, SeverityEnum
 
 
