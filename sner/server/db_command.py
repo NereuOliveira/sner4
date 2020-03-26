@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-sner server commands module
+sner.server db command module
 """
 
 import os
@@ -32,21 +32,21 @@ def db_remove():
 
 
 @click.group(name='db', help='sner.server db management')
-def db_command():
-    """db command group/container"""
+def command():
+    """db command container"""
 
 
-@db_command.command(name='init', help='initialize database schema')
+@command.command(name='init', help='initialize database schema')
 @with_appcontext
-def db_init():  # pragma: no cover
+def init():  # pragma: no cover
     """initialize database schema"""
 
     db.create_all()
 
 
-@db_command.command(name='init-data', help='put initial data to database')
+@command.command(name='init-data', help='put initial data to database')
 @with_appcontext
-def db_initdata():  # pylint: disable=too-many-statements
+def initdata():  # pylint: disable=too-many-statements
     """put initial data to database"""
 
     # auth test data
@@ -225,9 +225,9 @@ def db_initdata():  # pylint: disable=too-many-statements
     db.session.commit()
 
 
-@db_command.command(name='remove', help='remove database (including var content)')
+@command.command(name='remove', help='remove database (including var content)')
 @with_appcontext
-def db_remove_command():
+def remove():
     """db remove command stub"""
 
     db_remove()

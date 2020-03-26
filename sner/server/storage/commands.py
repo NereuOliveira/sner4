@@ -91,11 +91,11 @@ def vuln_report():
 
 
 @click.group(name='storage', help='sner.server storage management')
-def storage_command():
-    """storage commands click group/container"""
+def command():
+    """storage commands container"""
 
 
-@storage_command.command(name='import', help='import data from files')
+@command.command(name='import', help='import data from files')
 @with_appcontext
 @click.argument('parser')
 @click.argument('path', nargs=-1)
@@ -113,7 +113,7 @@ def storage_import(path, parser):
     sys.exit(0)
 
 
-@storage_command.command(name='flush', help='flush all objects from storage')
+@command.command(name='flush', help='flush all objects from storage')
 @with_appcontext
 def storage_flush():
     """flush all objects from storage"""
@@ -122,14 +122,14 @@ def storage_flush():
     db.session.commit()
 
 
-@storage_command.command(name='report', help='generate vuln report')
+@command.command(name='report', help='generate vuln report')
 @with_appcontext
 def storage_report():
     """generate vuln report"""
     print(vuln_report())
 
 
-@storage_command.command(name='host-cleanup', help='cleanup hosts; remove hosts not associated with any data (eg. just addresses)')
+@command.command(name='host-cleanup', help='cleanup hosts; remove hosts not associated with any data (eg. just addresses)')
 @with_appcontext
 @click.option('--dry', is_flag=True, help='do not actually remove')
 def storage_host_cleanup(**kwargs):
@@ -162,7 +162,7 @@ def storage_host_cleanup(**kwargs):
         db.session.commit()
 
 
-@storage_command.command(name='service-list', help='service (filtered) listing')
+@command.command(name='service-list', help='service (filtered) listing')
 @with_appcontext
 @click.option('--filter', help='filter query')
 @click.option('--hostnames', is_flag=True, help='show host.hostname')
@@ -200,7 +200,7 @@ def storage_service_list(**kwargs):
         print(fmt.format(**get_data(tmp), host=get_host(tmp, kwargs['hostnames'])))
 
 
-@storage_command.command(name='service-cleanup', help='cleanup services; remove all in "filtered" state')
+@command.command(name='service-cleanup', help='cleanup services; remove all in "filtered" state')
 @with_appcontext
 @click.option('--dry', is_flag=True, help='do not actually remove')
 def storage_service_cleanup(**kwargs):

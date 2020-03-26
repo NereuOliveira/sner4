@@ -15,11 +15,11 @@ from sner.server.password_supervisor import PasswordSupervisor as PWS
 
 
 @click.group(name='auth', help='sner.server auth management')
-def auth_command():
-    """auth commands click group/container"""
+def command():
+    """auth commands container"""
 
 
-@auth_command.command(name='reset-password', help='reset password')
+@command.command(name='reset-password', help='reset password')
 @click.argument('username')
 @with_appcontext
 def passwordreset(username):

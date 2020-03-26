@@ -24,11 +24,11 @@ def queuebyx(queue_ident):
 
 
 @click.group(name='scheduler', help='sner.server scheduler management')
-def scheduler_command():
-    """scheduler commands click group/container"""
+def command():
+    """scheduler commands container"""
 
 
-@scheduler_command.command(name='enumips', help='enumerate ip address range')
+@command.command(name='enumips', help='enumerate ip address range')
 @click.argument('targets', nargs=-1)
 @click.option('--file', type=click.File('r'))
 def enumips(targets, **kwargs):
@@ -45,7 +45,7 @@ def enumips(targets, **kwargs):
             print(tmp)
 
 
-@scheduler_command.command(name='rangetocidr', help='convert range specified addr space to series of cidr')
+@command.command(name='rangetocidr', help='convert range specified addr space to series of cidr')
 @click.argument('start')
 @click.argument('end')
 def rangetocidr(start, end):
@@ -55,7 +55,7 @@ def rangetocidr(start, end):
         print(tmp)
 
 
-@scheduler_command.command(name='queue-enqueue', help='add targets to queue')
+@command.command(name='queue-enqueue', help='add targets to queue')
 @click.argument('queue_ident')
 @click.argument('argtargets', nargs=-1)
 @click.option('--file', type=click.File('r'))
@@ -82,7 +82,7 @@ def queue_enqueue(queue_ident, argtargets, **kwargs):
     sys.exit(0)
 
 
-@scheduler_command.command(name='queue-flush', help='flush all targets from queue')
+@command.command(name='queue-flush', help='flush all targets from queue')
 @click.argument('queue_id')
 @with_appcontext
 def queue_flush(queue_id):
@@ -98,7 +98,7 @@ def queue_flush(queue_id):
     sys.exit(0)
 
 
-@scheduler_command.command(name='queue-prune', help='delete all associated jobs')
+@command.command(name='queue-prune', help='delete all associated jobs')
 @click.argument('queue_id')
 @with_appcontext
 def queue_prune(queue_id):

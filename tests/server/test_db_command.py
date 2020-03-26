@@ -7,30 +7,30 @@ import os
 
 from flask import current_app
 
-from sner.server.commands import db_command
+from sner.server.db_command import command
 from sner.server.extensions import db
 from sner.server.scheduler.models import Target
 from sner.server.storage.models import Vuln
 
 
-def test_dbinit_command(runner):
+def test_init_command(runner):
     """db init test"""
 
-    result = runner.invoke(db_command, ['init'])
+    result = runner.invoke(command, ['init'])
     assert result.exit_code == 0
 
 
-def test_dbinitdata_command(runner):
+def test_initdata_command(runner):
     """db initdata test"""
 
-    result = runner.invoke(db_command, ['init-data'])
+    result = runner.invoke(command, ['init-data'])
     assert result.exit_code == 0
 
     assert Target.query.all()
     assert Vuln.query.all()
 
 
-def test_dbremove_command(runner):
+def test_remove_command(runner):
     """db remove test"""
 
     test_dir = '%s/dbremovetest' % current_app.config['SNER_VAR']
@@ -39,7 +39,7 @@ def test_dbremove_command(runner):
         ftmp.write('db remove test')
     os.mkdir(test_dir)
 
-    result = runner.invoke(db_command, ['remove'])
+    result = runner.invoke(command, ['remove'])
     assert result.exit_code == 0
 
     assert not db.engine.table_names()

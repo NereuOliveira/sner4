@@ -3,17 +3,17 @@
 auth.command tests
 """
 
-from sner.server.auth.commands import auth_command
+from sner.server.auth.commands import command
 from sner.server.auth.models import User
 
 
-def test_auth_passwordreset_command(runner, test_user):
+def test_passwordreset_command(runner, test_user):
     """auth password reset command test"""
 
-    result = runner.invoke(auth_command, ['reset-password', 'notexists'])
+    result = runner.invoke(command, ['reset-password', 'notexists'])
     assert result.exit_code == 1
 
-    result = runner.invoke(auth_command, ['reset-password', test_user.username])
+    result = runner.invoke(command, ['reset-password', test_user.username])
     assert result.exit_code == 0
 
     user = User.query.filter(User.username == test_user.username).one()

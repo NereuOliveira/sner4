@@ -23,10 +23,10 @@ from sner.server.scheduler.views import blueprint as scheduler_blueprint
 from sner.server.storage.views import blueprint as storage_blueprint
 from sner.server.visuals.views import blueprint as visuals_blueprint
 
-from sner.server.auth.commands import auth_command
-from sner.server.commands import db_command
-from sner.server.scheduler.commands import scheduler_command
-from sner.server.storage.commands import storage_command
+from sner.server.auth.commands import command as auth_command
+from sner.server.db_command import command as db_command
+from sner.server.scheduler.commands import command as scheduler_command
+from sner.server.storage.commands import command as storage_command
 
 # shell context helpers
 from sner.server.auth.models import User, WebauthnCredential
