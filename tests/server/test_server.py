@@ -31,6 +31,13 @@ def test_datetime_filter(app):
     assert app.jinja_env.filters['datetime'](None) == ''
 
 
+def test_json_indent_filter(app):
+    """test indenting filter"""
+
+    assert app.jinja_env.filters['json_indent']('"xxx"') == '"xxx"'
+    assert app.jinja_env.filters['json_indent']('xxx') == 'xxx'
+
+
 def test_cli():
     """test sner server cli/main flask wrapper"""
 

@@ -5,7 +5,7 @@ storage test models
 
 import pytest
 
-from sner.server.storage.model import Host, Note, Service, SeverityEnum, Vuln
+from sner.server.storage.models import Host, Note, Service, SeverityEnum, Vuln
 from tests import persist_and_detach
 
 

@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller auth.profile; user profile self-management
+auth profile views; user profile self-management
 """
 
 import json

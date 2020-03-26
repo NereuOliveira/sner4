@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller auth.user; user management
+auth user views; user management
 """
 
 from http import HTTPStatus

@@ -14,7 +14,7 @@ from sner.server.auth.models import User
 # import all fixtures here; they will be available in all tests, import on module specific level would trigger redefined-outer-name
 from tests.server.auth.models import test_user, test_wncred  # noqa: F401  pylint: disable=unused-import
 from tests.server.scheduler.models import test_excl_network, test_excl_regex, test_job, test_job_completed, test_queue, test_target, test_task  # noqa: F401,E501  pylint: disable=unused-import
-from tests.server.storage.model import test_host, test_note, test_service, test_vuln  # noqa: F401  pylint: disable=unused-import
+from tests.server.storage.models import test_host, test_note, test_service, test_vuln  # noqa: F401  pylint: disable=unused-import
 
 
 @pytest.fixture

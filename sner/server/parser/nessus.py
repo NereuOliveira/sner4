@@ -11,7 +11,7 @@ from tenable.reports import NessusReportv2
 
 from sner.server import db
 from sner.server.parser import ParserBase, register_parser
-from sner.server.storage.model import Host, Note, Service, SeverityEnum, Vuln
+from sner.server.storage.models import Host, Note, Service, SeverityEnum, Vuln
 from sner.server.utils import SnerJSONEncoder
 
 

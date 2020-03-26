@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-auth module views
+auth views
 """
 
 from flask import Blueprint

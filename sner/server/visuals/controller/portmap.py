@@ -10,7 +10,7 @@ from sqlalchemy_filters import apply_filters
 from sner.server import db
 from sner.server.auth.core import role_required
 from sner.server.sqlafilter import filter_parser
-from sner.server.storage.model import Host, Service
+from sner.server.storage.models import Host, Service
 from sner.server.visuals.controller import blueprint
 
 

@@ -8,8 +8,8 @@ from sqlalchemy import desc, func
 
 from sner.server import db
 from sner.server.auth.core import role_required
-from sner.server.storage.controller.service import service_info_column
-from sner.server.storage.model import Service
+from sner.server.storage.views.service import service_info_column
+from sner.server.storage.models import Service
 from sner.server.visuals.controller import blueprint
 
 

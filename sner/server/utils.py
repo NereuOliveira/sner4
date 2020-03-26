@@ -15,7 +15,7 @@ from werkzeug.exceptions import HTTPException
 
 from sner.agent.modules import Manymap
 from sner.server.scheduler.models import Excl, ExclFamily
-from sner.server.storage.model import SeverityEnum
+from sner.server.storage.models import SeverityEnum
 
 
 class ExclMatcher():

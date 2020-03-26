@@ -3,6 +3,7 @@
 main application package module
 """
 
+import json
 import os
 import sys
 
@@ -60,7 +61,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
 
     app = Flask('sner.server')
     app.config.update(DEFAULT_CONFIG)  # default config
-    app.config.update(config_from_yaml('/etc/sner.yaml'))  # easy configuration from cwd
+    app.config.update(config_from_yaml('/etc/sner.yaml'))  # service configuration
     app.config.update(config_from_yaml(config_file))  # passed from other programs, eg. tests
     app.config.update(config_from_yaml(os.environ.get(config_env)))  # wsgi config
 
@@ -80,7 +81,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     from sner.server.scheduler.views import scheduler_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(scheduler_blueprint, url_prefix='/scheduler')
-    from sner.server.storage.controller import blueprint as storage_blueprint  # pylint: disable=import-outside-toplevel
+    from sner.server.storage.views import storage_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(storage_blueprint, url_prefix='/storage')
     from sner.server.visuals.controller import blueprint as visuals_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(visuals_blueprint, url_prefix='/visuals')
@@ -91,12 +92,8 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     app.cli.add_command(db_command)
     from sner.server.scheduler.commands import scheduler_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(scheduler_command)
-    from sner.server.storage.command import storage_command  # pylint: disable=import-outside-toplevel
+    from sner.server.storage.commands import storage_command  # pylint: disable=import-outside-toplevel
     app.cli.add_command(storage_command)
-
-    @app.route('/')
-    def index_route():  # pylint: disable=unused-variable
-        return render_template('index.html')
 
     @app.template_filter('datetime')
     def format_datetime(value, fmt='%Y-%m-%dT%H:%M:%S'):  # pylint: disable=unused-variable
@@ -104,6 +101,14 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
         if value is None:
             return ''
         return value.strftime(fmt)
+
+    @app.template_filter('json_indent')
+    def json_indent(data):  # pylint: disable=unused-variable
+        """parse and format json"""
+        try:
+            return json.dumps(json.loads(data), sort_keys=True, indent=4)
+        except ValueError:
+            return data
 
     # globaly enable flask_wtf csrf token helper
     # least intrusive way to pass token into every view without enforcing csrf on all routes
@@ -113,12 +118,16 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     def make_shell_context():  # pylint: disable=unused-variable
         from sner.server.auth.models import User, WebauthnCredential  # pylint: disable=import-outside-toplevel
         from sner.server.scheduler.models import Excl, ExclFamily, Job, Queue, Target, Task  # pylint: disable=import-outside-toplevel
-        from sner.server.storage.model import Host, Note, Service, Vuln  # pylint: disable=import-outside-toplevel
+        from sner.server.storage.models import Host, Note, Service, Vuln  # pylint: disable=import-outside-toplevel
         return {
             'app': app, 'db': db,
             'Excl': Excl, 'ExclFamily': ExclFamily, 'Job': Job, 'Queue': Queue, 'Target': Target, 'Task': Task,
             'Host': Host, 'Note': Note, 'Service': Service, 'Vuln': Vuln,
             'User': User, 'WebauthnCredential': WebauthnCredential}
+
+    @app.route('/')
+    def index_route():  # pylint: disable=unused-variable
+        return render_template('index.html')
 
     return app
 

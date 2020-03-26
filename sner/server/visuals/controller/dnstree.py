@@ -6,7 +6,7 @@ controller dnstree
 from flask import jsonify, render_template, request
 
 from sner.server.auth.core import role_required
-from sner.server.storage.model import Host
+from sner.server.storage.models import Host
 from sner.server.visuals.controller import blueprint
 
 

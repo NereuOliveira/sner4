@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller vuln tests
+storage.views.vuln tests
 """
 
 import json
@@ -8,10 +8,10 @@ from http import HTTPStatus
 
 from flask import url_for
 
-from sner.server.storage.model import Vuln
+from sner.server.storage.models import Vuln
 from tests.server import get_csrf_token
-from tests.server.storage.controller import check_annotate, check_tag_multiid
-from tests.server.storage.model import create_test_vuln
+from tests.server.storage.models import create_test_vuln
+from tests.server.storage.views import check_annotate, check_tag_multiid
 
 
 def test_vuln_list_route(cl_operator):

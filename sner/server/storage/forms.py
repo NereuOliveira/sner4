@@ -8,7 +8,7 @@ from wtforms import FieldList, HiddenField, IntegerField, SelectField, SubmitFie
 from wtforms.validators import AnyOf, InputRequired, IPAddress, Length, NumberRange, Optional
 
 from sner.server.form import StringNoneField, TextAreaListField, TextAreaNoneField
-from sner.server.storage.model import Host, Service, SeverityEnum
+from sner.server.storage.models import Host, Service, SeverityEnum
 
 
 def host_id_exists(form, field):  # pylint: disable=unused-argument

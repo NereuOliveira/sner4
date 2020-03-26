@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller host
+storage hosts views
 """
 
 from datatables import ColumnDT, DataTables
@@ -12,13 +12,14 @@ from sner.server import db
 from sner.server.auth.core import role_required
 from sner.server.form import ButtonForm
 from sner.server.sqlafilter import filter_parser
-from sner.server.storage.controller import annotate_model, blueprint, tag_model_multiid
-from sner.server.storage.form import HostForm
-from sner.server.storage.model import Host, Note, Service, Vuln
+from sner.server.storage.core import annotate_model, tag_model_multiid
+from sner.server.storage.forms import HostForm
+from sner.server.storage.models import Host, Note, Service, Vuln
+from sner.server.storage.views import storage_blueprint
 from sner.server.utils import relative_referrer, valid_next_url
 
 
-@blueprint.route('/host/list')
+@storage_blueprint.route('/host/list')
 @role_required('operator')
 def host_list_route():
     """list hosts"""
@@ -26,7 +27,7 @@ def host_list_route():
     return render_template('storage/host/list.html')
 
 
-@blueprint.route('/host/list.json', methods=['GET', 'POST'])
+@storage_blueprint.route('/host/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def host_list_json_route():
     """list hosts, data endpoint"""
@@ -57,7 +58,7 @@ def host_list_json_route():
     return jsonify(hosts)
 
 
-@blueprint.route('/host/add', methods=['GET', 'POST'])
+@storage_blueprint.route('/host/add', methods=['GET', 'POST'])
 @role_required('operator')
 def host_add_route():
     """add host"""
@@ -74,7 +75,7 @@ def host_add_route():
     return render_template('storage/host/addedit.html', form=form)
 
 
-@blueprint.route('/host/edit/<host_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/host/edit/<host_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def host_edit_route(host_id):
     """edit host"""
@@ -91,7 +92,7 @@ def host_edit_route(host_id):
     return render_template('storage/host/addedit.html', form=form)
 
 
-@blueprint.route('/host/delete/<host_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/host/delete/<host_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def host_delete_route(host_id):
     """delete host"""
@@ -106,14 +107,14 @@ def host_delete_route(host_id):
     return render_template('button-delete.html', form=form)
 
 
-@blueprint.route('/host/annotate/<model_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/host/annotate/<model_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def host_annotate_route(model_id):
     """annotate vuln"""
     return annotate_model(Host, model_id)
 
 
-@blueprint.route('/host/view/<host_id>')
+@storage_blueprint.route('/host/view/<host_id>')
 @role_required('operator')
 def host_view_route(host_id):
     """view host"""
@@ -122,7 +123,7 @@ def host_view_route(host_id):
     return render_template('storage/host/view.html', host=host, button_form=ButtonForm())
 
 
-@blueprint.route('/host/tag_multiid', methods=['POST'])
+@storage_blueprint.route('/host/tag_multiid', methods=['POST'])
 @role_required('operator')
 def host_tag_multiid_route():
     """tag multiple route"""

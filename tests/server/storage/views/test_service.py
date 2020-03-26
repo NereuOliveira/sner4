@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller services tests
+storage.views.service tests
 """
 
 import json
@@ -8,9 +8,9 @@ from http import HTTPStatus
 
 from flask import url_for
 
-from sner.server.storage.model import Service
-from tests.server.storage.controller import check_annotate
-from tests.server.storage.model import create_test_service
+from sner.server.storage.models import Service
+from tests.server.storage.models import create_test_service
+from tests.server.storage.views import check_annotate
 
 
 def test_service_list_route(cl_operator):

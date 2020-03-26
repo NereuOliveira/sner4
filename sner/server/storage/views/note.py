@@ -1,9 +1,7 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller note
+storage note views
 """
-
-import json
 
 from datatables import ColumnDT, DataTables
 from flask import jsonify, redirect, render_template, request, url_for
@@ -14,23 +12,14 @@ from sner.server import db
 from sner.server.auth.core import role_required
 from sner.server.form import ButtonForm
 from sner.server.sqlafilter import filter_parser
-from sner.server.storage.controller import annotate_model, blueprint, get_related_models
-from sner.server.storage.form import NoteForm
-from sner.server.storage.model import Host, Note, Service
+from sner.server.storage.core import annotate_model, get_related_models
+from sner.server.storage.forms import NoteForm
+from sner.server.storage.models import Host, Note, Service
+from sner.server.storage.views import storage_blueprint
 from sner.server.utils import relative_referrer, valid_next_url
 
 
-@blueprint.app_template_filter()
-def json_indent(data):
-    """parse and format json"""
-
-    try:
-        return json.dumps(json.loads(data), sort_keys=True, indent=4)
-    except ValueError:
-        return data
-
-
-@blueprint.route('/note/list')
+@storage_blueprint.route('/note/list')
 @role_required('operator')
 def note_list_route():
     """list notes"""
@@ -38,7 +27,7 @@ def note_list_route():
     return render_template('storage/note/list.html')
 
 
-@blueprint.route('/note/list.json', methods=['GET', 'POST'])
+@storage_blueprint.route('/note/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def note_list_json_route():
     """list notes, data endpoint"""
@@ -63,7 +52,7 @@ def note_list_json_route():
     return jsonify(notes)
 
 
-@blueprint.route('/note/add/<model_name>/<model_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/note/add/<model_name>/<model_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def note_add_route(model_name, model_id):
     """add note to host"""
@@ -81,7 +70,7 @@ def note_add_route(model_name, model_id):
     return render_template('storage/note/addedit.html', form=form, host=host, service=service)
 
 
-@blueprint.route('/note/edit/<note_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/note/edit/<note_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def note_edit_route(note_id):
     """edit note"""
@@ -98,7 +87,7 @@ def note_edit_route(note_id):
     return render_template('storage/note/addedit.html', form=form, host=note.host, service=note.service)
 
 
-@blueprint.route('/note/delete/<note_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/note/delete/<note_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def note_delete_route(note_id):
     """delete note"""
@@ -113,14 +102,14 @@ def note_delete_route(note_id):
     return render_template('button-delete.html', form=form)
 
 
-@blueprint.route('/note/annotate/<model_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/note/annotate/<model_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def note_annotate_route(model_id):
     """annotate note"""
     return annotate_model(Note, model_id)
 
 
-@blueprint.route('/note/view/<note_id>')
+@storage_blueprint.route('/note/view/<note_id>')
 @role_required('operator')
 def note_view_route(note_id):
     """view note"""

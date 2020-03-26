@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller task
+scheduler task views
 """
 
 from datatables import ColumnDT, DataTables

@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller vuln
+storage vuln views
 """
 
 import json
@@ -16,14 +16,15 @@ from sner.server import db
 from sner.server.auth.core import role_required
 from sner.server.form import ButtonForm
 from sner.server.sqlafilter import filter_parser
-from sner.server.storage.command import vuln_report
-from sner.server.storage.controller import annotate_model, blueprint, get_related_models, tag_model_multiid
-from sner.server.storage.form import MultiidForm, VulnForm
-from sner.server.storage.model import Host, Service, Vuln
+from sner.server.storage.core import annotate_model, get_related_models, tag_model_multiid
+from sner.server.storage.commands import vuln_report
+from sner.server.storage.forms import MultiidForm, VulnForm
+from sner.server.storage.models import Host, Service, Vuln
+from sner.server.storage.views import storage_blueprint
 from sner.server.utils import relative_referrer, SnerJSONEncoder, valid_next_url
 
 
-@blueprint.route('/vuln/list')
+@storage_blueprint.route('/vuln/list')
 @role_required('operator')
 def vuln_list_route():
     """list vulns"""
@@ -31,7 +32,7 @@ def vuln_list_route():
     return render_template('storage/vuln/list.html')
 
 
-@blueprint.route('/vuln/list.json', methods=['GET', 'POST'])
+@storage_blueprint.route('/vuln/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def vuln_list_json_route():
     """list vulns, data endpoint"""
@@ -59,7 +60,7 @@ def vuln_list_json_route():
     return Response(json.dumps(vulns, cls=SnerJSONEncoder), mimetype='application/json')
 
 
-@blueprint.route('/vuln/add/<model_name>/<model_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/vuln/add/<model_name>/<model_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def vuln_add_route(model_name, model_id):
     """add vuln to host or service"""
@@ -77,7 +78,7 @@ def vuln_add_route(model_name, model_id):
     return render_template('storage/vuln/addedit.html', form=form, host=host, service=service)
 
 
-@blueprint.route('/vuln/edit/<vuln_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/vuln/edit/<vuln_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def vuln_edit_route(vuln_id):
     """edit vuln"""
@@ -94,7 +95,7 @@ def vuln_edit_route(vuln_id):
     return render_template('storage/vuln/addedit.html', form=form, host=vuln.host, service=vuln.service)
 
 
-@blueprint.route('/vuln/delete/<vuln_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/vuln/delete/<vuln_id>', methods=['GET', 'POST'])
 def vuln_delete_route(vuln_id):
     """delete vuln"""
 
@@ -108,14 +109,14 @@ def vuln_delete_route(vuln_id):
     return render_template('button-delete.html', form=form)
 
 
-@blueprint.route('/vuln/annotate/<model_id>', methods=['GET', 'POST'])
+@storage_blueprint.route('/vuln/annotate/<model_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def vuln_annotate_route(model_id):
     """annotate vuln"""
     return annotate_model(Vuln, model_id)
 
 
-@blueprint.route('/vuln/view/<vuln_id>')
+@storage_blueprint.route('/vuln/view/<vuln_id>')
 @role_required('operator')
 def vuln_view_route(vuln_id):
     """view vuln"""
@@ -124,7 +125,7 @@ def vuln_view_route(vuln_id):
     return render_template('storage/vuln/view.html', vuln=vuln, button_form=ButtonForm())
 
 
-@blueprint.route('/vuln/delete_multiid', methods=['POST'])
+@storage_blueprint.route('/vuln/delete_multiid', methods=['POST'])
 @role_required('operator')
 def vuln_delete_multiid_route():
     """delete multiple vulns route"""
@@ -138,14 +139,14 @@ def vuln_delete_multiid_route():
     return jsonify({'title': 'Invalid form submitted.'}), HTTPStatus.BAD_REQUEST
 
 
-@blueprint.route('/vuln/tag_multiid', methods=['POST'])
+@storage_blueprint.route('/vuln/tag_multiid', methods=['POST'])
 @role_required('operator')
 def vuln_tag_multiid_route():
     """tag multiple route"""
     return tag_model_multiid(Vuln)
 
 
-@blueprint.route('/vuln/grouped')
+@storage_blueprint.route('/vuln/grouped')
 @role_required('operator')
 def vuln_grouped_route():
     """view grouped vulns"""
@@ -153,7 +154,7 @@ def vuln_grouped_route():
     return render_template('storage/vuln/grouped.html')
 
 
-@blueprint.route('/vuln/grouped.json', methods=['GET', 'POST'])
+@storage_blueprint.route('/vuln/grouped.json', methods=['GET', 'POST'])
 @role_required('operator')
 def vuln_grouped_json_route():
     """view grouped vulns, data endpoint"""
@@ -172,7 +173,7 @@ def vuln_grouped_json_route():
     return Response(json.dumps(vulns, cls=SnerJSONEncoder), mimetype='application/json')
 
 
-@blueprint.route('/vuln/report')
+@storage_blueprint.route('/vuln/report')
 @role_required('operator')
 def vuln_report_route():
     """generate vulns report"""

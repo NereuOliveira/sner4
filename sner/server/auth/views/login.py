@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-auth module authentication views
+auth login/authentication views
 """
 
 from base64 import b64decode, b64encode

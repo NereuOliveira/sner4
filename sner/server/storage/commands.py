@@ -19,7 +19,7 @@ from sner.lib import format_host_address
 from sner.server import db
 from sner.server.parser import registered_parsers
 from sner.server.sqlafilter import filter_parser
-from sner.server.storage.model import Host, Note, Service, Vuln
+from sner.server.storage.models import Host, Note, Service, Vuln
 
 
 def vuln_report():

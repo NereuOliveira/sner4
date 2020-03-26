@@ -1,13 +1,13 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-storage commands tests
+storage.commands tests
 """
 
 import json
 
 from sner.server import db
-from sner.server.storage.command import storage_command
-from sner.server.storage.model import Host, Note, Service, SeverityEnum, Vuln
+from sner.server.storage.commands import storage_command
+from sner.server.storage.models import Host, Note, Service, SeverityEnum, Vuln
 from tests import persist_and_detach
 
 

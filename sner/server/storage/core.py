@@ -1,18 +1,15 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller storage main module
+scheduler module functions
 """
 
 from http import HTTPStatus
 
-from flask import Blueprint, jsonify, render_template
+from flask import jsonify, render_template
 
 from sner.server import db
-from sner.server.storage.form import AnnotateForm, TagMultiidForm
-from sner.server.storage.model import Host, Service
-
-
-blueprint = Blueprint('storage', __name__)  # pylint: disable=invalid-name
+from sner.server.storage.forms import AnnotateForm, TagMultiidForm
+from sner.server.storage.models import Host, Service
 
 
 def get_related_models(model_name, model_id):
@@ -57,9 +54,3 @@ def tag_model_multiid(model_class):
         return '', HTTPStatus.OK
 
     return jsonify({'title': 'Invalid form submitted.'}), HTTPStatus.BAD_REQUEST
-
-
-import sner.server.storage.controller.host  # noqa: E402  pylint: disable=wrong-import-position
-import sner.server.storage.controller.service  # noqa: E402  pylint: disable=wrong-import-position
-import sner.server.storage.controller.note  # noqa: E402  pylint: disable=wrong-import-position
-import sner.server.storage.controller.vuln  # noqa: E402,F401  pylint: disable=wrong-import-position

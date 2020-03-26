@@ -1,6 +1,6 @@
 # This file is part of sner4 project governed by MIT license, see the LICENSE.txt file.
 """
-controller hosts tests
+storage.views.host tests
 """
 
 import json
@@ -8,9 +8,9 @@ from http import HTTPStatus
 
 from flask import url_for
 
-from sner.server.storage.model import Host
-from tests.server.storage.controller import check_annotate, check_tag_multiid
-from tests.server.storage.model import create_test_host
+from sner.server.storage.models import Host
+from tests.server.storage.models import create_test_host
+from tests.server.storage.views import check_annotate, check_tag_multiid
 
 
 def test_host_list_route(cl_operator):

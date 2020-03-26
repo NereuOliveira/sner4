@@ -40,15 +40,6 @@ def test_textarealistfield(app):  # pylint: disable=unused-argument
     assert not form.a.data
 
 
-def test_models_storage_repr(app, test_host, test_service, test_vuln, test_note):  # pylint: disable=unused-argument
-    """test models repr methods"""
-
-    assert repr(test_host)
-    assert repr(test_service)
-    assert repr(test_vuln)
-    assert repr(test_note)
-
-
 def test_model_excl_validation():
     """test excl model validation"""
 
