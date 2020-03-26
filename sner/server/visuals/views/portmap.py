@@ -11,14 +11,14 @@ from sner.server import db
 from sner.server.auth.core import role_required
 from sner.server.sqlafilter import filter_parser
 from sner.server.storage.models import Host, Service
-from sner.server.visuals.controller import blueprint
+from sner.server.visuals.views import visuals_blueprint
 
 
 VIZPORTS_LOW = 10.0
 VIZPORTS_HIGH = 100.0
 
 
-@blueprint.route('/portmap')
+@visuals_blueprint.route('/portmap')
 @role_required('operator')
 def portmap_route():
     """visualize portmap"""
@@ -40,7 +40,7 @@ def portmap_route():
     return render_template('visuals/portmap.html', portmap=portmap, portstates=portstates)
 
 
-@blueprint.route('/portmap_portstat/<port>')
+@visuals_blueprint.route('/portmap_portstat/<port>')
 @role_required('operator')
 def portmap_portstat_route(port):
     """generate port statistics fragment"""

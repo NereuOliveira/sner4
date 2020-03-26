@@ -10,10 +10,10 @@ from sner.server import db
 from sner.server.auth.core import role_required
 from sner.server.storage.views.service import service_info_column
 from sner.server.storage.models import Service
-from sner.server.visuals.controller import blueprint
+from sner.server.visuals.views import visuals_blueprint
 
 
-@blueprint.route('/portinfos')
+@visuals_blueprint.route('/portinfos')
 @role_required('operator')
 def portinfos_route():
     """generate word cloud for service.info"""
@@ -21,7 +21,7 @@ def portinfos_route():
     return render_template('visuals/portinfos.html')
 
 
-@blueprint.route('/portinfos.json')
+@visuals_blueprint.route('/portinfos.json')
 @role_required('operator')
 def portinfos_json_route():
     """service info visualization json data endpoint"""

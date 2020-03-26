@@ -83,7 +83,7 @@ def create_app(config_file=None, config_env='SNER_CONFIG'):
     app.register_blueprint(scheduler_blueprint, url_prefix='/scheduler')
     from sner.server.storage.views import storage_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(storage_blueprint, url_prefix='/storage')
-    from sner.server.visuals.controller import blueprint as visuals_blueprint  # pylint: disable=import-outside-toplevel
+    from sner.server.visuals.views import visuals_blueprint  # pylint: disable=import-outside-toplevel
     app.register_blueprint(visuals_blueprint, url_prefix='/visuals')
 
     from sner.server.auth.commands import auth_command  # pylint: disable=import-outside-toplevel

@@ -7,10 +7,10 @@ from flask import jsonify, render_template, request
 
 from sner.server.auth.core import role_required
 from sner.server.storage.models import Host
-from sner.server.visuals.controller import blueprint
+from sner.server.visuals.views import visuals_blueprint
 
 
-@blueprint.route('/dnstree')
+@visuals_blueprint.route('/dnstree')
 @role_required('operator')
 def dnstree_route():
     """dns hierarchy tree visualization"""
@@ -18,7 +18,7 @@ def dnstree_route():
     return render_template('visuals/dnstree.html')
 
 
-@blueprint.route('/dnstree.json')
+@visuals_blueprint.route('/dnstree.json')
 @role_required('operator')
 def dnstree_json_route():
     """dns hierarchy tree visualization data generator"""
