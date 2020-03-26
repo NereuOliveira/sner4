@@ -9,12 +9,12 @@ from flask import jsonify, redirect, render_template, request, url_for
 from sqlalchemy import func, literal_column
 from sqlalchemy_filters import apply_filters
 
-from sner.server import db
 from sner.server.auth.core import role_required
+from sner.server.extensions import db
 from sner.server.forms import ButtonForm
 from sner.server.scheduler.forms import QueueEnqueueForm, QueueForm
 from sner.server.scheduler.models import Job, Queue, Target, Task
-from sner.server.scheduler.views import scheduler_blueprint
+from sner.server.scheduler.views import blueprint
 from sner.server.scheduler.views.job import job_delete
 from sner.server.sqlafilter import filter_parser
 
@@ -30,7 +30,7 @@ def queue_delete(queue):
     db.session.commit()
 
 
-@scheduler_blueprint.route('/queue/list', methods=['GET'])
+@blueprint.route('/queue/list', methods=['GET'])
 @role_required('operator')
 def queue_list_route():
     """list queues"""
@@ -38,7 +38,7 @@ def queue_list_route():
     return render_template('scheduler/queue/list.html')
 
 
-@scheduler_blueprint.route('/queue/list.json', methods=['GET', 'POST'])
+@blueprint.route('/queue/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def queue_list_json_route():
     """list queues, data endpoint"""
@@ -65,8 +65,8 @@ def queue_list_json_route():
     return jsonify(queues)
 
 
-@scheduler_blueprint.route('/queue/add', methods=['GET', 'POST'])
-@scheduler_blueprint.route('/queue/add/<task_id>', methods=['GET', 'POST'])
+@blueprint.route('/queue/add', methods=['GET', 'POST'])
+@blueprint.route('/queue/add/<task_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def queue_add_route(task_id=None):
     """queue add"""
@@ -83,7 +83,7 @@ def queue_add_route(task_id=None):
     return render_template('scheduler/queue/addedit.html', form=form)
 
 
-@scheduler_blueprint.route('/queue/edit/<queue_id>', methods=['GET', 'POST'])
+@blueprint.route('/queue/edit/<queue_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def queue_edit_route(queue_id):
     """queue edit"""
@@ -99,7 +99,7 @@ def queue_edit_route(queue_id):
     return render_template('scheduler/queue/addedit.html', form=form)
 
 
-@scheduler_blueprint.route('/queue/enqueue/<queue_id>', methods=['GET', 'POST'])
+@blueprint.route('/queue/enqueue/<queue_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def queue_enqueue_route(queue_id):
     """queue enqueue; put targets into queue"""
@@ -120,7 +120,7 @@ def queue_enqueue_route(queue_id):
     return render_template('scheduler/queue/enqueue.html', form=form)
 
 
-@scheduler_blueprint.route('/queue/flush/<queue_id>', methods=['GET', 'POST'])
+@blueprint.route('/queue/flush/<queue_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def queue_flush_route(queue_id):
     """queue flush; flush all targets from queue"""
@@ -135,7 +135,7 @@ def queue_flush_route(queue_id):
     return render_template('button-generic.html', form=form, button_caption='Flush')
 
 
-@scheduler_blueprint.route('/queue/prune/<queue_id>', methods=['GET', 'POST'])
+@blueprint.route('/queue/prune/<queue_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def queue_prune_route(queue_id):
     """queue prune; delete all queue jobs"""
@@ -150,7 +150,7 @@ def queue_prune_route(queue_id):
     return render_template('button-generic.html', form=form, button_caption='Prune')
 
 
-@scheduler_blueprint.route('/queue/delete/<queue_id>', methods=['GET', 'POST'])
+@blueprint.route('/queue/delete/<queue_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def queue_delete_route(queue_id):
     """queue delete"""

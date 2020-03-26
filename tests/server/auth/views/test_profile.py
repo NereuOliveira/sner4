@@ -11,9 +11,9 @@ from fido2 import cbor
 from flask import url_for
 from soft_webauthn import SoftWebauthnDevice
 
-from sner.server import db, webauthn
 from sner.server.auth.core import TOTPImpl
 from sner.server.auth.models import User, WebauthnCredential
+from sner.server.extensions import db, webauthn
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from tests import persist_and_detach
 from tests.server import get_csrf_token

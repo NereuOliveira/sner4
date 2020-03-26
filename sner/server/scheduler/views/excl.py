@@ -15,12 +15,12 @@ from sqlalchemy import literal_column
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy_filters import apply_filters
 
-from sner.server import db
 from sner.server.auth.core import role_required
+from sner.server.extensions import db
 from sner.server.forms import ButtonForm
 from sner.server.scheduler.forms import ExclForm, ExclImportForm
 from sner.server.scheduler.models import Excl, ExclFamily
-from sner.server.scheduler.views import scheduler_blueprint
+from sner.server.scheduler.views import blueprint
 from sner.server.sqlafilter import filter_parser
 from sner.server.utils import SnerJSONEncoder
 
@@ -28,7 +28,7 @@ from sner.server.utils import SnerJSONEncoder
 EXPORT_FIELDNAMES = ['family', 'value', 'comment']
 
 
-@scheduler_blueprint.route('/excl/list')
+@blueprint.route('/excl/list')
 @role_required('operator')
 def excl_list_route():
     """list target exclustions"""
@@ -36,7 +36,7 @@ def excl_list_route():
     return render_template('scheduler/excl/list.html')
 
 
-@scheduler_blueprint.route('/excl/list.json', methods=['GET', 'POST'])
+@blueprint.route('/excl/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def excl_list_json_route():
     """list target exclusions, data endpoint"""
@@ -56,7 +56,7 @@ def excl_list_json_route():
     return Response(json.dumps(excls, cls=SnerJSONEncoder), mimetype='application/json')
 
 
-@scheduler_blueprint.route('/excl/add', methods=['GET', 'POST'])
+@blueprint.route('/excl/add', methods=['GET', 'POST'])
 @role_required('operator')
 def excl_add_route():
     """add exclustion"""
@@ -73,7 +73,7 @@ def excl_add_route():
     return render_template('scheduler/excl/addedit.html', form=form)
 
 
-@scheduler_blueprint.route('/excl/edit/<excl_id>', methods=['GET', 'POST'])
+@blueprint.route('/excl/edit/<excl_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def excl_edit_route(excl_id):
     """edit exclustion"""
@@ -89,7 +89,7 @@ def excl_edit_route(excl_id):
     return render_template('scheduler/excl/addedit.html', form=form)
 
 
-@scheduler_blueprint.route('/excl/delete/<excl_id>', methods=['GET', 'POST'])
+@blueprint.route('/excl/delete/<excl_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def excl_delete_route(excl_id):
     """delete exclusion"""
@@ -104,7 +104,7 @@ def excl_delete_route(excl_id):
     return render_template('button-delete.html', form=form)
 
 
-@scheduler_blueprint.route('/excl/import', methods=['GET', 'POST'])
+@blueprint.route('/excl/import', methods=['GET', 'POST'])
 @role_required('operator')
 def excl_import_route():
     """import exclustions from csv"""
@@ -131,7 +131,7 @@ def excl_import_route():
     return render_template('scheduler/excl/import.html', form=form)
 
 
-@scheduler_blueprint.route('/excl/export')
+@blueprint.route('/excl/export')
 @role_required('operator')
 def excl_export_route():
     """export excls to csv"""

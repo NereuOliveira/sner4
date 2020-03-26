@@ -13,7 +13,8 @@ from unittest.mock import patch
 import pytest
 from flask import url_for
 
-from sner.server import cli, get_dotted
+from sner.lib import get_dotted
+from sner.server.app import cli
 from sner.version import __version__
 
 

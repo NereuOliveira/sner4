@@ -7,18 +7,18 @@ from flask import render_template, request
 from sqlalchemy import desc, func
 from sqlalchemy_filters import apply_filters
 
-from sner.server import db
 from sner.server.auth.core import role_required
+from sner.server.extensions import db
 from sner.server.sqlafilter import filter_parser
 from sner.server.storage.models import Host, Service
-from sner.server.visuals.views import visuals_blueprint
+from sner.server.visuals.views import blueprint
 
 
 VIZPORTS_LOW = 10.0
 VIZPORTS_HIGH = 100.0
 
 
-@visuals_blueprint.route('/portmap')
+@blueprint.route('/portmap')
 @role_required('operator')
 def portmap_route():
     """visualize portmap"""
@@ -40,7 +40,7 @@ def portmap_route():
     return render_template('visuals/portmap.html', portmap=portmap, portstates=portstates)
 
 
-@visuals_blueprint.route('/portmap_portstat/<port>')
+@blueprint.route('/portmap_portstat/<port>')
 @role_required('operator')
 def portmap_portstat_route(port):
     """generate port statistics fragment"""

@@ -18,11 +18,11 @@ from flask import current_app, flash, redirect, render_template, request, Respon
 from flask_login import current_user
 from sqlalchemy import literal_column
 
-from sner.server import db, webauthn
 from sner.server.auth.core import role_required, TOTPImpl, webauthn_credentials
 from sner.server.auth.forms import TotpCodeForm, UserChangePasswordForm, WebauthnRegisterForm, WebauthnEditForm
 from sner.server.auth.models import User, WebauthnCredential
-from sner.server.auth.views import auth_blueprint
+from sner.server.auth.views import blueprint
+from sner.server.extensions import db, webauthn
 from sner.server.forms import ButtonForm
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from sner.server.utils import SnerJSONEncoder
@@ -33,7 +33,7 @@ def random_string(length=32):
     return ''.join([SystemRandom().choice(string.ascii_letters + string.digits) for i in range(length)])
 
 
-@auth_blueprint.route('/profile', methods=['GET', 'POST'])
+@blueprint.route('/profile', methods=['GET', 'POST'])
 @role_required('user')
 def profile_route():
     """general user profile route"""
@@ -42,7 +42,7 @@ def profile_route():
     return render_template('auth/profile/index.html', user=user)
 
 
-@auth_blueprint.route('/profile/changepassword', methods=['GET', 'POST'])
+@blueprint.route('/profile/changepassword', methods=['GET', 'POST'])
 @role_required('user')
 def profile_changepassword_route():
     """user profile change password"""
@@ -62,7 +62,7 @@ def profile_changepassword_route():
     return render_template('auth/profile/changepassword.html', form=form)
 
 
-@auth_blueprint.route('/profile/totp', methods=['GET', 'POST'])
+@blueprint.route('/profile/totp', methods=['GET', 'POST'])
 @role_required('user')
 def profile_totp_route():
     """user profile totp management route"""
@@ -122,7 +122,7 @@ def profile_totp_route():
 #   - packed assertion is sent to the server for authentication
 #   - server validates the assertion (challenge, signature) against registered user credentials and performs logon process on success
 
-@auth_blueprint.route('/profile/webauthn/list.json', methods=['GET', 'POST'])
+@blueprint.route('/profile/webauthn/list.json', methods=['GET', 'POST'])
 @role_required('user')
 def profile_webauthn_list_json_route():
     """get registered credentials list for current user"""
@@ -140,7 +140,7 @@ def profile_webauthn_list_json_route():
     return Response(json.dumps(creds, cls=SnerJSONEncoder), mimetype='application/json')
 
 
-@auth_blueprint.route('/profile/webauthn/pkcco', methods=['POST'])
+@blueprint.route('/profile/webauthn/pkcco', methods=['POST'])
 @role_required('user')
 def profile_webauthn_pkcco_route():
     """get publicKeyCredentialCreationOptions"""
@@ -160,7 +160,7 @@ def profile_webauthn_pkcco_route():
     return '', HTTPStatus.BAD_REQUEST
 
 
-@auth_blueprint.route('/profile/webauthn/register', methods=['GET', 'POST'])
+@blueprint.route('/profile/webauthn/register', methods=['GET', 'POST'])
 @role_required('user')
 def profile_webauthn_register_route():
     """register credential for current user"""
@@ -190,7 +190,7 @@ def profile_webauthn_register_route():
     return render_template('auth/profile/webauthn_register.html', form=form)
 
 
-@auth_blueprint.route('/profile/webauthn/edit/<webauthn_id>', methods=['GET', 'POST'])
+@blueprint.route('/profile/webauthn/edit/<webauthn_id>', methods=['GET', 'POST'])
 @role_required('user')
 def profile_webauthn_edit_route(webauthn_id):
     """edit registered credential"""
@@ -205,7 +205,7 @@ def profile_webauthn_edit_route(webauthn_id):
     return render_template('auth/profile/webauthn_edit.html', form=form)
 
 
-@auth_blueprint.route('/profile/webauthn/delete/<webauthn_id>', methods=['GET', 'POST'])
+@blueprint.route('/profile/webauthn/delete/<webauthn_id>', methods=['GET', 'POST'])
 @role_required('user')
 def profile_webauthn_delete_route(webauthn_id):
     """delete registered credential"""

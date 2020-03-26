@@ -6,7 +6,7 @@ storage views
 from flask import Blueprint
 
 
-storage_blueprint = Blueprint('storage', __name__)  # pylint: disable=invalid-name
+blueprint = Blueprint('storage', __name__)  # pylint: disable=invalid-name
 
 
 import sner.server.storage.views.host  # noqa: E402  pylint: disable=wrong-import-position

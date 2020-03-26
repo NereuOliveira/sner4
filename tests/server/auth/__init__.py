@@ -6,8 +6,8 @@ auth shared functions
 from fido2 import cbor
 from soft_webauthn import SoftWebauthnDevice
 
-from sner.server import webauthn
 from sner.server.auth.models import WebauthnCredential
+from sner.server.extensions import webauthn
 from tests import persist_and_detach
 
 

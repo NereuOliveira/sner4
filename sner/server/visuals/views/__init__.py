@@ -6,10 +6,10 @@ visuals views
 from flask import Blueprint, render_template
 
 
-visuals_blueprint = Blueprint('visuals', __name__)  # pylint: disable=invalid-name
+blueprint = Blueprint('visuals', __name__)  # pylint: disable=invalid-name
 
 
-@visuals_blueprint.route('/')
+@blueprint.route('/')
 def index_route():
     """visuals index"""
     return render_template('visuals/index.html')

@@ -13,7 +13,7 @@ from flask import current_app
 from sqlalchemy import func, Index, select
 from sqlalchemy.orm import column_property, relationship, validates
 
-from sner.server import db
+from sner.server.extensions import db
 from sner.server.models import SelectableEnum
 
 

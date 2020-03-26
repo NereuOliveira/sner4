@@ -9,8 +9,8 @@ from fido2 import cbor
 from flask import url_for
 from soft_webauthn import SoftWebauthnDevice
 
-from sner.server import webauthn
 from sner.server.auth.models import User
+from sner.server.extensions import webauthn
 from tests.selenium import webdriver_waituntil
 from tests.selenium.auth import js_variable_ready
 

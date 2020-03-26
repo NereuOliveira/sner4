@@ -18,17 +18,17 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.sql.expression import func
 
 import sner.agent.protocol
-from sner.server import db
 from sner.server.auth.core import role_required
+from sner.server.extensions import db
 from sner.server.scheduler.models import Job, Queue, Target
 from sner.server.utils import ExclMatcher
 
 
-api_blueprint = Blueprint('api', __name__)  # pylint: disable=invalid-name
+blueprint = Blueprint('api', __name__)  # pylint: disable=invalid-name
 
 
-@api_blueprint.route('/v1/scheduler/job/assign')
-@api_blueprint.route('/v1/scheduler/job/assign/<queue_ident>')
+@blueprint.route('/v1/scheduler/job/assign')
+@blueprint.route('/v1/scheduler/job/assign/<queue_ident>')
 @role_required('agent', api=True)
 def v1_scheduler_job_assign_route(queue_ident=None):
     """assign job for worker"""
@@ -97,7 +97,7 @@ def v1_scheduler_job_assign_route(queue_ident=None):
     return jsonify(assignment)
 
 
-@api_blueprint.route('/v1/scheduler/job/output', methods=['POST'])
+@blueprint.route('/v1/scheduler/job/output', methods=['POST'])
 @role_required('agent', api=True)
 def v1_scheduler_job_output_route():
     """receive output from assigned job"""

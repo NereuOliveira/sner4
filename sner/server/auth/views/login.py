@@ -12,16 +12,16 @@ from fido2.ctap2 import AuthenticatorData
 from flask import current_app, flash, redirect, request, render_template, Response, session, url_for
 from flask_login import login_user, logout_user
 
-from sner.server import login_manager, webauthn
 from sner.server.auth.core import regenerate_session, redirect_after_login, TOTPImpl, webauthn_credentials
 from sner.server.auth.forms import LoginForm, TotpCodeForm, WebauthnLoginForm
 from sner.server.auth.models import User
-from sner.server.auth.views import auth_blueprint
+from sner.server.auth.views import blueprint
+from sner.server.extensions import login_manager, webauthn
 from sner.server.forms import ButtonForm
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 
 
-@auth_blueprint.route('/login', methods=['GET', 'POST'])
+@blueprint.route('/login', methods=['GET', 'POST'])
 def login_route():
     """login route"""
 
@@ -48,7 +48,7 @@ def login_route():
     return render_template('auth/login.html', form=form)
 
 
-@auth_blueprint.route('/logout')
+@blueprint.route('/logout')
 def logout_route():
     """logout route"""
 
@@ -57,7 +57,7 @@ def logout_route():
     return redirect(url_for('index_route'))
 
 
-@auth_blueprint.route('/login_totp', methods=['GET', 'POST'])
+@blueprint.route('/login_totp', methods=['GET', 'POST'])
 def login_totp_route():
     """login totp route"""
 
@@ -77,7 +77,7 @@ def login_totp_route():
     return render_template('auth/login_totp.html', form=form)
 
 
-@auth_blueprint.route('/login_webauthn_pkcro', methods=['POST'])
+@blueprint.route('/login_webauthn_pkcro', methods=['POST'])
 def login_webauthn_pkcro_route():
     """login webauthn pkcro route"""
 
@@ -91,7 +91,7 @@ def login_webauthn_pkcro_route():
     return '', HTTPStatus.BAD_REQUEST
 
 
-@auth_blueprint.route('/login_webauthn', methods=['GET', 'POST'])
+@blueprint.route('/login_webauthn', methods=['GET', 'POST'])
 def login_webauthn_route():
     """login webauthn route"""
 

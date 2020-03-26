@@ -9,14 +9,14 @@ from sqlalchemy import func, literal_column
 from sqlalchemy.dialects import postgresql
 from sqlalchemy_filters import apply_filters
 
-from sner.server import db
 from sner.server.auth.core import role_required
+from sner.server.extensions import db
 from sner.server.forms import ButtonForm
 from sner.server.sqlafilter import filter_parser
 from sner.server.storage.core import annotate_model
 from sner.server.storage.forms import ServiceForm
 from sner.server.storage.models import Host, Service
-from sner.server.storage.views import storage_blueprint
+from sner.server.storage.views import blueprint
 from sner.server.utils import relative_referrer, valid_next_url
 
 
@@ -28,7 +28,7 @@ def service_info_column(crop):
     return Service.info
 
 
-@storage_blueprint.route('/service/list')
+@blueprint.route('/service/list')
 @role_required('operator')
 def service_list_route():
     """list services"""
@@ -36,7 +36,7 @@ def service_list_route():
     return render_template('storage/service/list.html')
 
 
-@storage_blueprint.route('/service/list.json', methods=['GET', 'POST'])
+@blueprint.route('/service/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def service_list_json_route():
     """list services, data endpoint"""
@@ -63,7 +63,7 @@ def service_list_json_route():
     return jsonify(services)
 
 
-@storage_blueprint.route('/service/add/<host_id>', methods=['GET', 'POST'])
+@blueprint.route('/service/add/<host_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def service_add_route(host_id):
     """add service to host"""
@@ -81,7 +81,7 @@ def service_add_route(host_id):
     return render_template('storage/service/addedit.html', form=form, host=host)
 
 
-@storage_blueprint.route('/service/edit/<service_id>', methods=['GET', 'POST'])
+@blueprint.route('/service/edit/<service_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def service_edit_route(service_id):
     """edit service"""
@@ -98,7 +98,7 @@ def service_edit_route(service_id):
     return render_template('storage/service/addedit.html', form=form, host=service.host)
 
 
-@storage_blueprint.route('/service/delete/<service_id>', methods=['GET', 'POST'])
+@blueprint.route('/service/delete/<service_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def service_delete_route(service_id):
     """delete service"""
@@ -114,14 +114,14 @@ def service_delete_route(service_id):
     return render_template('button-delete.html', form=form)
 
 
-@storage_blueprint.route('/service/annotate/<model_id>', methods=['GET', 'POST'])
+@blueprint.route('/service/annotate/<model_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def service_annotate_route(model_id):
     """annotate service"""
     return annotate_model(Service, model_id)
 
 
-@storage_blueprint.route('/service/grouped')
+@blueprint.route('/service/grouped')
 @role_required('operator')
 def service_grouped_route():
     """view grouped services"""
@@ -129,7 +129,7 @@ def service_grouped_route():
     return render_template('storage/service/grouped.html')
 
 
-@storage_blueprint.route('/service/grouped.json', methods=['GET', 'POST'])
+@blueprint.route('/service/grouped.json', methods=['GET', 'POST'])
 @role_required('operator')
 def service_grouped_json_route():
     """view grouped services, data endpoint"""

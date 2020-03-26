@@ -7,7 +7,7 @@ from http import HTTPStatus
 
 from flask import jsonify, render_template
 
-from sner.server import db
+from sner.server.extensions import db
 from sner.server.storage.forms import AnnotateForm, TagMultiidForm
 from sner.server.storage.models import Host, Service
 

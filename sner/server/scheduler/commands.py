@@ -10,9 +10,9 @@ import click
 from flask import current_app
 from flask.cli import with_appcontext
 
-from sner.server import db
-from sner.server.scheduler.views.job import job_delete
+from sner.server.extensions import db
 from sner.server.scheduler.models import Job, Queue, Target
+from sner.server.scheduler.views.job import job_delete
 
 
 def queuebyx(queue_ident):

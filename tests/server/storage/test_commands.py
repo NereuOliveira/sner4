@@ -5,7 +5,7 @@ storage.commands tests
 
 import json
 
-from sner.server import db
+from sner.server.extensions import db
 from sner.server.storage.commands import storage_command
 from sner.server.storage.models import Host, Note, Service, SeverityEnum, Vuln
 from tests import persist_and_detach

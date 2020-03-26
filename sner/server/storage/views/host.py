@@ -8,18 +8,18 @@ from flask import jsonify, redirect, render_template, request, url_for
 from sqlalchemy import func, literal_column
 from sqlalchemy_filters import apply_filters
 
-from sner.server import db
 from sner.server.auth.core import role_required
+from sner.server.extensions import db
 from sner.server.forms import ButtonForm
 from sner.server.sqlafilter import filter_parser
 from sner.server.storage.core import annotate_model, tag_model_multiid
 from sner.server.storage.forms import HostForm
 from sner.server.storage.models import Host, Note, Service, Vuln
-from sner.server.storage.views import storage_blueprint
+from sner.server.storage.views import blueprint
 from sner.server.utils import relative_referrer, valid_next_url
 
 
-@storage_blueprint.route('/host/list')
+@blueprint.route('/host/list')
 @role_required('operator')
 def host_list_route():
     """list hosts"""
@@ -27,7 +27,7 @@ def host_list_route():
     return render_template('storage/host/list.html')
 
 
-@storage_blueprint.route('/host/list.json', methods=['GET', 'POST'])
+@blueprint.route('/host/list.json', methods=['GET', 'POST'])
 @role_required('operator')
 def host_list_json_route():
     """list hosts, data endpoint"""
@@ -58,7 +58,7 @@ def host_list_json_route():
     return jsonify(hosts)
 
 
-@storage_blueprint.route('/host/add', methods=['GET', 'POST'])
+@blueprint.route('/host/add', methods=['GET', 'POST'])
 @role_required('operator')
 def host_add_route():
     """add host"""
@@ -75,7 +75,7 @@ def host_add_route():
     return render_template('storage/host/addedit.html', form=form)
 
 
-@storage_blueprint.route('/host/edit/<host_id>', methods=['GET', 'POST'])
+@blueprint.route('/host/edit/<host_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def host_edit_route(host_id):
     """edit host"""
@@ -92,7 +92,7 @@ def host_edit_route(host_id):
     return render_template('storage/host/addedit.html', form=form)
 
 
-@storage_blueprint.route('/host/delete/<host_id>', methods=['GET', 'POST'])
+@blueprint.route('/host/delete/<host_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def host_delete_route(host_id):
     """delete host"""
@@ -107,14 +107,14 @@ def host_delete_route(host_id):
     return render_template('button-delete.html', form=form)
 
 
-@storage_blueprint.route('/host/annotate/<model_id>', methods=['GET', 'POST'])
+@blueprint.route('/host/annotate/<model_id>', methods=['GET', 'POST'])
 @role_required('operator')
 def host_annotate_route(model_id):
     """annotate vuln"""
     return annotate_model(Host, model_id)
 
 
-@storage_blueprint.route('/host/view/<host_id>')
+@blueprint.route('/host/view/<host_id>')
 @role_required('operator')
 def host_view_route(host_id):
     """view host"""
@@ -123,7 +123,7 @@ def host_view_route(host_id):
     return render_template('storage/host/view.html', host=host, button_form=ButtonForm())
 
 
-@storage_blueprint.route('/host/tag_multiid', methods=['POST'])
+@blueprint.route('/host/tag_multiid', methods=['POST'])
 @role_required('operator')
 def host_tag_multiid_route():
     """tag multiple route"""

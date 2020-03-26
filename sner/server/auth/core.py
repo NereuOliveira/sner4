@@ -18,8 +18,8 @@ from fido2.ctap2 import AttestedCredentialData
 from flask import _request_ctx_stack, current_app, g, redirect, request, url_for
 from flask_login import current_user
 
-from sner.server import login_manager
 from sner.server.auth.models import User
+from sner.server.extensions import login_manager
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 from sner.server.utils import valid_next_url
 

@@ -11,7 +11,7 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
-from sner.server import db
+from sner.server.extensions import db
 from sner.server.password_supervisor import PasswordSupervisor as PWS
 
 

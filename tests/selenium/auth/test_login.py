@@ -11,7 +11,7 @@ from flask import url_for
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-from sner.server import webauthn
+from sner.server.extensions import webauthn
 from tests.server.auth import webauthn_device_init
 from tests.selenium import webdriver_waituntil
 from tests.selenium.auth import js_variable_ready

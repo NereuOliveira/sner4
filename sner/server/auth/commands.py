@@ -9,9 +9,9 @@ import click
 from flask import current_app
 from flask.cli import with_appcontext
 
-from sner.server import db
-from sner.server.password_supervisor import PasswordSupervisor as PWS
 from sner.server.auth.models import User
+from sner.server.extensions import db
+from sner.server.password_supervisor import PasswordSupervisor as PWS
 
 
 @click.group(name='auth', help='sner.server auth management')

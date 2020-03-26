@@ -9,7 +9,7 @@ from datetime import datetime
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import relationship
 
-from sner.server import db
+from sner.server.extensions import db
 from sner.server.models import SelectableEnum
 
 
